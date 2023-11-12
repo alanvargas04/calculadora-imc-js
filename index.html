@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            background-color: #4CAF50;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form {
+            width: 50%;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form input {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #4CAF50;
+            border-radius: 10px;
+        }
+
+        .form button {
+            margin: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            
+        }
+
+        .form button:hover {
+            background-color: #0c5a0f;
+            box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.205);
+        }
+
+        .result {
+            width: 45%;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #4CAF50;
+            border-radius: 10px;
+            background-color: #F0F0F0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result p {
+            margin: 10px;
+            font-size: 20px;
+        }
+
+        .result span {
+            font-weight: bold;
+        }
+
+        .table {
+            width: 50%;
+            margin: 20px;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            border: 1px solid #4CAF50;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h1>Calculadora de IMC</h1>
+
+    <div class="container">
+        <div class="form">
+            <input type="number" id="weight" placeholder="Digite o seu peso em kg" min="0" step="0.5">
+            <input type="number" id="height" placeholder="Digite a sua altura em m" min="0" step="0.01">
+            <button id="calculate" onclick="calculateIMC()">Calcular</button>
+        </div>
+        <div class="result" id="result">
+            <p>O seu IMC é: <span id="imc"></span></p>
+            <p>Você está com: <span id="classification"></span></p>
+        </div>
+        <table class="table">
+            <thead>
+                <th>IMC</th>
+                <th>Classificação</th>
+            </thead>
+            <tr>
+                <td>Menor que 18,5</td>
+                <td>Baixo peso</td>
+            </tr>
+            <tr>
+                <td>Entre 18,5 e 24,9</td>
+                <td>Peso Normal</td>
+            </tr>
+            <tr>
+                <td>Entre 25,0 e 29,9</td>
+                <td>Sobrepeso</td>
+            </tr>
+            <tr>
+                <td>Entre 30,0 e 39,9</td>
+                <td>Obesidade</td>
+            </tr>
+            <tr>
+                <td>Maior que 40,0</td>
+                <td>Obesidade grave</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        function calculateIMC() {
+            
+            var weight = document.getElementById("weight").value;
+            var height = document.getElementById("height").value;
+
+            
+            if (weight == "" || height == "") {
+                alert("Por favor, preencha os campos de peso e altura.");
+                return;
+            }
+
+            var imc = weight / (height * height);
+
+            imc = imc.toFixed(2);
+
+            var classification = "";
+            if (imc < 18.5) {
+                classification = "Baixo Peso";
+            } else if (imc >= 18.5 && imc <= 24.9) {
+                classification = "Peso Normal";
+            } else if (imc >= 25.0 && imc <= 29.9) {
+                classification = "Sobrepeso";
+            } else if (imc >= 30.0 && imc <= 39.9) {
+                classification = "Obesidade";
+            } else {
+                classification = "Obesidade grave";
+            }
+
+            document.getElementById("imc").innerHTML = imc;
+            document.getElementById("classification").innerHTML = classification;
+            document.getElementById("result").style.display = "flex";
+        }
+    </script>
+</body>
+</html>
